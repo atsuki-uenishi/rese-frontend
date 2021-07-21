@@ -77,7 +77,7 @@ export default {
     },
     methods: {
         async getShop() {
-            const getData = await this.$axios.get("process.env.APP_BASE_API/api/v1/stores/" + this.$route.params.shop_id);
+            const getData = await this.$axios.get("process.env.VUE_APP_API_URL_BASE/api/v1/stores/" + this.$route.params.shop_id);
             this.store = getData.data.data
             this.area = this.store.area
             this.genre = this.store.genre
@@ -96,7 +96,7 @@ export default {
                 time: this.time,
                 number: this.number
             }
-            await this.$axios.post("process.env.APP_BASE_API/api/v1/reservations/", sendData);
+            await this.$axios.post("process.env.VUE_APP_API_URL_BASE/api/v1/reservations/", sendData);
             this.$router.push("/done");
         }
     },
