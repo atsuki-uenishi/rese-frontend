@@ -63,9 +63,6 @@ export default {
 
 <style scoped>
 
-.menu {
-  width: 90%;
-}
 
 .menu-btn {
     display: inline-block;
