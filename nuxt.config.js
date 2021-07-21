@@ -57,7 +57,7 @@ export default {
     strategies: {
       'laravelJWT': {
         provider: 'laravel/jwt',
-        url: 'https://mysterious-plateau-61386.herokuapp.com/',
+        url: 'https://mysterious-plateau-61386.herokuapp.com',
         token: {
           maxAge: 60 * 60
         },
