@@ -51,10 +51,11 @@ export default {
   axios: {
     prefix: '/api',
     proxy: true,
+    baseURL: '/.netlify/functions',
   },
 
   proxy: {
-    'https://rese-atsuki.netlify.app/api/': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/api/': ''}}
+    '/.netlify': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/.netlify/functions': ''}}
   },
 
 
