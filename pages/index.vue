@@ -73,7 +73,7 @@ export default {
     },
     async getlike() {
       if(this.$store.state.user.userId) {
-        const getData = await this.$axios.get("/api/v1/users/" + this.$store.state.user.userId + "/likes");
+        const getData = await this.$axios.get("https://mysterious-plateau-61386.herokuapp.com/api/v1/users/" + this.$store.state.user.userId + "/likes");
         this.likedStores = getData.data.data
       }
     },
@@ -83,17 +83,17 @@ export default {
             user_id: this.$store.state.user.userId,
             store_id: storeId
           };
-          await this.$axios.post("/api/v1/likes/", sendData);
+          await this.$axios.post("https://mysterious-plateau-61386.herokuapp.com/api/v1/likes/", sendData);
       } else {
         const likeIndex = this.likedStores.findIndex(like => like.store_id === storeId);
         if(likeIndex !== -1) {
-          await this.$axios.delete("/api/v1/likes/" + this.likedStores[likeIndex].id);
+          await this.$axios.delete("https://mysterious-plateau-61386.herokuapp.com/api/v1/likes/" + this.likedStores[likeIndex].id);
         } else {
           const sendData = {
               user_id: this.$store.state.user.userId,
               store_id: storeId
             };
-            await this.$axios.post("/api/v1/likes/", sendData);
+            await this.$axios.post("https://mysterious-plateau-61386.herokuapp.com/api/v1/likes/", sendData);
         }
       }
       this.getlike();

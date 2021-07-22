@@ -49,11 +49,12 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
+    prefix: '/api',
     proxy: true,
   },
 
   proxy: {
-    '/api/': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/api/': '/'}}
+    '/api/': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/api/': ''}}
   },
 
 
