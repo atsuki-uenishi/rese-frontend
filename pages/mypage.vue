@@ -95,7 +95,7 @@ export default {
                     user_id: this.$store.state.user.userId,
                     store_id: storeId
                 };
-            await this.$axios.post("/api/v1/likes/", sendData);
+            await this.$axios.post("/api/v1/likes", sendData);
             } else {
                 const likeIndex = this.likedStores.findIndex(like => like.store_id === storeId);
                 if(likeIndex !== -1) {
@@ -105,7 +105,7 @@ export default {
                         user_id: this.$store.state.user.userId,
                         store_id: storeId
                     };
-                    await this.$axios.post("/api/v1/likes/", sendData);
+                    await this.$axios.post("/api/v1/likes", sendData);
                 }
             }
             this.getlike();
