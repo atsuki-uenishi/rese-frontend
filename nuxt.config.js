@@ -54,7 +54,7 @@ export default {
   },
 
   proxy: {
-    '/api/': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/api/': ''}}
+    'https://rese-atsuki.netlify.app/api/': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/api/': ''}}
   },
 
 
