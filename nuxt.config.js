@@ -56,7 +56,7 @@ export default {
   },
 
   proxy: {
-    '/.netlify': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/.netlify/functions': ''}}
+    '/.netlify/api/': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/.netlify/functions/api/': ''}}
   },
 
 
