@@ -77,7 +77,7 @@ export default {
     },
     methods: {
         async getShop() {
-            const getData = await this.$axios.get("https://mysterious-plateau-61386.herokuapp.com/api/v1/stores/" + this.$route.params.shop_id);
+            const getData = await this.$axios.get("/api/v1/stores/" + this.$route.params.shop_id);
             this.store = getData.data.data
             this.area = this.store.area
             this.genre = this.store.genre
@@ -96,7 +96,7 @@ export default {
                 time: this.time,
                 number: this.number
             }
-            await this.$axios.post("https://mysterious-plateau-61386.herokuapp.com/api/v1/reservations/", sendData);
+            await this.$axios.post("/api/v1/reservations/", sendData);
             this.$router.push("/done");
         }
     },
