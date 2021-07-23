@@ -96,7 +96,7 @@ export default {
                 time: this.time,
                 number: this.number
             }
-            await this.$axios.post("/api/v1/reservations", sendData);
+            await this.$axios.post("https://mysterious-plateau-61386.herokuapp.com/api/v1/reservations", sendData);
             this.$router.push("/done");
         }
     },
