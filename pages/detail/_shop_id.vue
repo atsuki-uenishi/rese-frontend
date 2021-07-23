@@ -23,8 +23,39 @@
             <div class="reservation">
                 <div class="reservation-box">
                     <h2>予約</h2>
-                    <input type="date" name="date" class="input-date" v-model="date">
-                    <input type="time" step="600" class="input-time" name="time" v-model="time">
+                    <input type="date" name="date" class="input-date" :min="today" v-model="date">
+                    <select name="time" class="input-time" v-model="time">
+                        <option v-show="beforeTime('09')" value="9:00">9:00</option>
+                        <option v-show="beforeTime('09')" value="9:30">9:30</option>
+                        <option v-show="beforeTime('10')" value="10:00">10:00</option>
+                        <option v-show="beforeTime('10')" value="10:30">10:30</option>
+                        <option v-show="beforeTime('11')" value="11:00">11:00</option>
+                        <option v-show="beforeTime('11')" value="11:30">11:30</option>
+                        <option v-show="beforeTime('12')" value="12:00">12:00</option>
+                        <option v-show="beforeTime('12')" value="12:30">12:30</option>
+                        <option v-show="beforeTime('13')" value="13:00">13:00</option>
+                        <option v-show="beforeTime('13')" value="13:30">13:30</option>
+                        <option v-show="beforeTime('14')" value="14:00">14:00</option>
+                        <option v-show="beforeTime('14')" value="14:30">14:30</option>
+                        <option v-show="beforeTime('15')" value="15:00">15:00</option>
+                        <option v-show="beforeTime('15')" value="15:30">15:30</option>
+                        <option v-show="beforeTime('16')" value="16:00">16:00</option>
+                        <option v-show="beforeTime('16')" value="16:30">16:30</option>
+                        <option v-show="beforeTime('17')" value="17:00">17:00</option>
+                        <option v-show="beforeTime('17')" value="17:30">17:30</option>
+                        <option v-show="beforeTime('18')" value="18:00">18:00</option>
+                        <option v-show="beforeTime('18')" value="18:30">18:30</option>
+                        <option v-show="beforeTime('19')" value="19:00">19:00</option>
+                        <option v-show="beforeTime('19')" value="19:30">19:30</option>
+                        <option v-show="beforeTime('20')" value="20:00">20:00</option>
+                        <option v-show="beforeTime('20')" value="20:30">20:30</option>
+                        <option v-show="beforeTime('21')" value="21:00">21:00</option>
+                        <option v-show="beforeTime('21')" value="21:30">21:30</option>
+                        <option v-show="beforeTime('22')" value="22:00">22:00</option>
+                        <option v-show="beforeTime('22')" value="22:30">22:30</option>
+                        <option v-show="beforeTime('23')" value="23:00">23:00</option>
+                        <option v-show="beforeTime('23')" value="23:30">23:30</option>
+                    </select>
                     <select name="number" class="input-number" v-model="number">
                         <option :value="1">1人</option>
                         <option :value="2">2人</option>
@@ -72,7 +103,7 @@ export default {
             genre: "",
             date: "",
             time: "",
-            number: "1"
+            number: "1",
         }
     },
     methods: {
@@ -98,7 +129,21 @@ export default {
             }
             await this.$axios.post("https://mysterious-plateau-61386.herokuapp.com/api/v1/reservations", sendData);
             this.$router.push("/done");
+        },
+        beforeTime(time) {
+            const nowH = new Date().getHours();
+            if(time <= nowH) {
+                return false
+            } else {
+                return true
+            }
         }
+    },
+    computed: {
+        today() {
+            const today = new Date();
+            return today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2);
+        },
     },
     created() {
         this.getShop();

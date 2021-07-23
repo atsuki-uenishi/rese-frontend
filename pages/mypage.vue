@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <th>Time</th>
-                        <td>{{reservation.time}}</td>
+                        <td>{{(reservation.time).slice(0,5)}}</td>
                     </tr>
                     <tr>
                         <th>Number</th>
@@ -125,6 +125,7 @@ export default {
         async deleteReservation(reservationId) {
             await this.$axios.delete("https://mysterious-plateau-61386.herokuapp.com/api/v1/reservations/" + reservationId);
             this.getReservations();
+            alert('予約を削除しました')
         },
         toStoreDetail(storeId) {
             this.$router.push('/detail/' + storeId)
