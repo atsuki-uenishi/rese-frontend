@@ -44,19 +44,17 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/proxy',
     '@nuxtjs/auth-next',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    prefix: '/api',
+    //prefix: '/api',
     proxy: true,
-    baseURL: '/.netlify/functions',
   },
 
   proxy: {
-    '/.netlify/api/': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/.netlify/functions/api/': ''}}
+    //'https://rese-atsuki.netlify.app/api/': { target: 'https://mysterious-plateau-61386.herokuapp.com', pathRewrite: {'^/api/': ''}}
   },
 
 
