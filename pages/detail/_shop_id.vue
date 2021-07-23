@@ -117,8 +117,19 @@ export default {
             this.$router.push("/");
         },
         async reserve() {
+            const nowH = new Date().getHours();
+            const today = new Date();
             if(!this.date || !this.time) {
                 return alert('必要事項を入力してください')
+            }
+            if(this.time.slice(0,1) == 1 ||  this.time.slice(0,1) == 2) {
+                if(today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2) == this.date && this.time.slice(0,2) <= nowH) {
+                    return alert('時間が不適切です');
+                }
+            } else {
+                if(today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2) == this.date && this.time.slice(0,1) <= nowH) {
+                    return alert('時間が不適切です');
+                }
             }
             const sendData = {
                 user_id: this.$store.state.user.userId,
@@ -132,8 +143,13 @@ export default {
         },
         beforeTime(time) {
             const nowH = new Date().getHours();
-            if(time <= nowH) {
+            const today = new Date();
+            if(today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2) == this.date) {
+                if(time <= nowH) {
                 return false
+                } else {
+                return true
+                }
             } else {
                 return true
             }
