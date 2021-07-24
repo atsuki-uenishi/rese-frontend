@@ -113,8 +113,7 @@ export default {
       if(this.$auth.loggedIn) {
         this.$store.commit('user/userIdSet', this.$auth.user.id)
         this.$store.commit('user/userNameSet', this.$auth.user.name)
-        this.userId = this.$store.state.user.userId
-        this.getlike();
+        this.userId = this.$store.state.user.userIdthis.getlike();
         this.getStores();
       }
     },
@@ -206,6 +205,7 @@ export default {
   },
   created() {
     this.getUser();
+    this.getlike();
     this.getStores();
   }
 }
