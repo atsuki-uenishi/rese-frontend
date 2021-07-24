@@ -114,6 +114,7 @@ export default {
         this.$store.commit('user/userIdSet', this.$auth.user.id)
         this.$store.commit('user/userNameSet', this.$auth.user.name)
         this.userId = this.$store.state.user.userId
+        this.getlike();
       }
     },
     toStoreDetail(storeId) {
@@ -204,7 +205,6 @@ export default {
   },
   created() {
     this.getStores();
-    this.getlike();
     this.getUser();
   }
 }
