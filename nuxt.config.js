@@ -69,9 +69,11 @@ export default {
         provider: 'laravel/jwt',
         url: 'https://mysterious-plateau-61386.herokuapp.com',
         token: {
+          property: 'access_token',
           maxAge: 60 * 60
         },
         refreshToken: {
+          property: 'access_token',
           maxAge: 20160 * 60
         }
       },

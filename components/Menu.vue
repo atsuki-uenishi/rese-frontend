@@ -1,80 +1,80 @@
 <template>
-    <div class="menu">
-      <div class="menu-box flex">
-        <div class="menu-btn" :class="{open: open}" @click="openMenu">
-                <span class="menu__line--top" ></span>
-                <span class="menu__line--middle"></span>
-                <span class="menu__line--bottom"></span>
-        </div>
-        <h2 class="logo">Rese</h2>
+  <div class="menu">
+    <div class="menu-box flex">
+      <div class="menu-btn" :class="{ open: open }" @click="openMenu">
+        <span class="menu__line--top"></span>
+        <span class="menu__line--middle"></span>
+        <span class="menu__line--bottom"></span>
       </div>
-      <div class="menu-list" v-show="open">
-          <ul>
-            <li @click="toHome">Home</li>
-            <li v-if="!$store.state.user.userId" @click="toRegister">registration</li>
-            <li v-if="!$store.state.user.userId" @click="toLogin">Login</li>
-            <li v-if="$store.state.user.userId" @click="logout">Logout</li>
-            <li v-if="$store.state.user.userId" @click="toMypage">Mypage</li>
-          </ul>
-      </div>
+      <h2 class="logo">Rese</h2>
     </div>
+    <div class="menu-list" v-show="open">
+      <ul>
+        <li @click="toHome">Home</li>
+        <li v-if="!$store.state.user.userId" @click="toRegister">
+          registration
+        </li>
+        <li v-if="!$store.state.user.userId" @click="toLogin">Login</li>
+        <li v-if="$store.state.user.userId" @click="logout">Logout</li>
+        <li v-if="$store.state.user.userId" @click="toMypage">Mypage</li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-          open: false
-        }
+  data() {
+    return {
+      open: false
+    };
+  },
+  methods: {
+    openMenu() {
+      if (this.open === true) {
+        this.open = false;
+      } else {
+        this.open = true;
+      }
     },
-    methods: {
-      openMenu() {
-        if(this.open === true) {
-          this.open = false;
-        } else {
-          this.open = true;
-        }
-      },
-      async logout() {
-        try {
-          await this.$auth.logout();
-          alert('ログアウトしました')
-          this.$store.commit('user/userIdSet', "")
-          this.$router.push("/login")
-        } catch(error) {
-          console.log(error)
-        }
-      },
-      toHome() {
-        this.$router.push('/')
-      },
-      toRegister() {
-        this.$router.push('/register')
-      },
-      toLogin() {
-        this.$router.push('/login')
-      },
-      toMypage() {
-        this.$router.push('/mypage')
-      },
+    async logout() {
+      try {
+        await this.$auth.logout();
+        alert("ログアウトしました");
+        this.$store.commit("user/userIdSet", "");
+        this.$router.push("/login");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    toHome() {
+      this.$router.push("/");
+    },
+    toRegister() {
+      this.$router.push("/register");
+    },
+    toLogin() {
+      this.$router.push("/login");
+    },
+    toMypage() {
+      this.$router.push("/mypage");
     }
-}
+  }
+};
 </script>
 
 <style scoped>
-
-
 .menu-btn {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    position: relative;
-    background-color: #2f5dff;
-    border-radius: 8px;
-    box-shadow: 1px 1px 5px #888;
-    z-index: 10;
-    margin-right: 10px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+  background-color: #2f5dff;
+  border-radius: 8px;
+  box-shadow: 1px 1px 5px #888;
+  z-index: 10;
+  margin-right: 10px;
 }
 
 .menu__line--top,
@@ -140,7 +140,7 @@ export default {
   left: 0;
   color: #2f5dff;
 }
-.menu-list ul{
+.menu-list ul {
   position: absolute;
   top: 50%;
   left: 50%;
