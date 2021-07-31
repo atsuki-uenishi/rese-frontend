@@ -190,6 +190,9 @@ export default {
         "https://mysterious-plateau-61386.herokuapp.com/api/auth/v1/reviews/" +
           reviewId
       );
+      this.alreadyReviewId = "";
+      this.rating = "";
+      this.review = "";
       this.getReviews();
       alert("レビューを削除しました");
     },
