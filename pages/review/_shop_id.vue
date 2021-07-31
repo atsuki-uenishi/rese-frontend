@@ -196,19 +196,6 @@ export default {
       this.getReviews();
       alert("レビューを削除しました");
     },
-    alreadyReview() {
-      const reviewIndex = this.reviews.findIndex(
-        review => review.user_id === this.$store.state.user.userId
-      );
-      if (reviewIndex !== -1) {
-        this.alreadyReviewId = this.reviews[reviewIndex].id;
-        this.rating = this.reviews[reviewIndex].rating;
-        this.review = this.reviews[reviewIndex].review;
-        return true;
-      } else {
-        return false;
-      }
-    },
     async changeReview() {
       if (this.review) {
         const sendData = {
@@ -249,7 +236,20 @@ export default {
       } else {
         return false;
       }
-    }
+    },
+    alreadyReview() {
+      const reviewIndex = this.reviews.findIndex(
+        review => review.user_id === this.$store.state.user.userId
+      );
+      if (reviewIndex !== -1) {
+        this.alreadyReviewId = this.reviews[reviewIndex].id;
+        this.rating = this.reviews[reviewIndex].rating;
+        this.review = this.reviews[reviewIndex].review;
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   created() {
     this.getShop();
