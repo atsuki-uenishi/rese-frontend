@@ -43,6 +43,35 @@
               <a>#{{ store.area.name }}</a>
               <a>#{{ store.genre.name }}</a>
             </div>
+            <div class="star flex" @click="toReview(store.id)">
+              <img
+                class="star-small"
+                :class="{ active: averageRating(store.reviews) >= 1 }"
+                src="../assets/img/star.png"
+              />
+              <img
+                class="star-small"
+                :class="{ active: averageRating(store.reviews) >= 2 }"
+                src="../assets/img/star.png"
+              />
+              <img
+                class="star-small"
+                :class="{ active: averageRating(store.reviews) >= 3 }"
+                src="../assets/img/star.png"
+              />
+              <img
+                class="star-small"
+                :class="{ active: averageRating(store.reviews) >= 4 }"
+                src="../assets/img/star.png"
+              />
+              <img
+                class="star-small"
+                :class="{ active: averageRating(store.reviews) >= 5 }"
+                src="../assets/img/star.png"
+              />
+              <p>{{ averageRating(store.reviews) }}</p>
+              <p>({{ store.reviews.length }}件)</p>
+            </div>
             <div class="flex store-card-action">
               <button class="store-card-btn" @click="toStoreDetail(store.id)">
                 詳しく見る
@@ -88,6 +117,14 @@ export default {
         }
         if (this.genres.indexOf(store.genre.name) === -1) {
           this.genres.push(store.genre.name);
+        }
+        if (this.$store.state.user.userId) {
+          for (let index = 0; index < store.likes.length; index++) {
+            const likeStore = store.likes[index];
+            if (likeStore.user_id === this.$store.state.user.userId) {
+              this.likedStores.push(likeStore);
+            }
+          }
         }
       }
     },
@@ -149,15 +186,28 @@ export default {
         this.$store.commit("user/userIdSet", this.$auth.user.id);
         this.$store.commit("user/userNameSet", this.$auth.user.name);
         this.userId = this.$store.state.user.userId;
-        this.getLike();
-        this.getStores();
       }
+      this.getStores();
     },
     toStoreDetail(storeId) {
       if (!this.$store.state.user.userId) {
         return alert("ログインしてください");
       }
       this.$router.push("/detail/" + storeId);
+    },
+    averageRating(reviews) {
+      if (!reviews[0]) {
+        return 0;
+      }
+      let averageRating = 0;
+      for (let index = 0; index < reviews.length; index++) {
+        const rating = reviews[index].rating;
+        averageRating += rating;
+      }
+      return Math.round((averageRating / reviews.length) * 10) / 10;
+    },
+    toReview(storeId) {
+      this.$router.push("/review/" + storeId);
     }
   },
   computed: {
@@ -165,7 +215,11 @@ export default {
       const searchStores = [];
       for (let index = 0; index < this.stores.length; index++) {
         const store = this.stores[index];
-        if(store.name.indexOf(this.searchName) !== -1 && store.area.name.indexOf(this.selectArea) !== -1 && store.genre.name.indexOf(this.selectGenre) !== -1) {
+        if (
+          store.name.indexOf(this.searchName) !== -1 &&
+          store.area.name.indexOf(this.selectArea) !== -1 &&
+          store.genre.name.indexOf(this.selectGenre) !== -1
+        ) {
           searchStores.push(store);
         }
       }
@@ -174,8 +228,6 @@ export default {
   },
   created() {
     this.getUser();
-    this.getLike();
-    this.getStores();
   }
 };
 </script>
@@ -316,5 +368,23 @@ select {
 .notlike {
   filter: invert(90%) sepia(0%) saturate(50%) hue-rotate(143deg)
     brightness(101%) contrast(93%);
+}
+.star-small {
+  width: 10%;
+  margin-right: 5px;
+  filter: invert(50%);
+}
+.active {
+  filter: invert(81%) sepia(81%) saturate(633%) hue-rotate(359deg)
+    brightness(106%) contrast(105%);
+}
+.star {
+  margin: 15px 0;
+  align-items: center;
+  cursor: pointer;
+}
+.star p {
+  margin-left: 10px;
+  font-size: 1.05rem;
 }
 </style>
