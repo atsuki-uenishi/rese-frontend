@@ -35,7 +35,7 @@
     </div>
     <div class="container">
       <div class="store-list flex">
-        <div v-for="store in searchStores" :key="store.id" class="store-card">
+        <div v-for="store in showStores" :key="store.id" class="store-card">
           <img :src="store.img_path" class="store-card-img" />
           <div class="store-card-detail">
             <h2>{{ store.name }}</h2>
@@ -43,7 +43,7 @@
               <a>#{{ store.area.name }}</a>
               <a>#{{ store.genre.name }}</a>
             </div>
-            <div class="star flex" @click="toReview(store.id)">
+            <div class="star flex">
               <img
                 class="star-small"
                 :class="{ active: averageRating(store.reviews) >= 1 }"
@@ -87,6 +87,23 @@
           </div>
         </div>
       </div>
+      <paginate
+        :page-count="getPageCount"
+        :page-range="3"
+        :margin-pages="2"
+        :click-handler="clickCallback"
+        :prev-text="'＜'"
+        :next-text="'＞'"
+        :container-class="'pagination flex'"
+        :page-class="'pagination-item'"
+        :page-link-class="'pagination-item__link'"
+        :prev-class="'pagination-btn pagination-prev'"
+        :prev-link-class="'pagination-btn__link'"
+        :next-class="'pagination-btn pagination-next'"
+        :next-link-class="'pagination-btn__link'"
+        :hide-prev-next="true"
+      >
+      </paginate>
     </div>
   </div>
 </template>
@@ -101,7 +118,9 @@ export default {
       searchName: "",
       likedStores: [],
       areas: [],
-      genres: []
+      genres: [],
+      parPage: 8,
+      currentPage: 1
     };
   },
   methods: {
@@ -206,8 +225,8 @@ export default {
       }
       return Math.round((averageRating / reviews.length) * 10) / 10;
     },
-    toReview(storeId) {
-      this.$router.push("/review/" + storeId);
+    clickCallback(pageNum) {
+      this.currentPage = Number(pageNum);
     }
   },
   computed: {
@@ -224,6 +243,14 @@ export default {
         }
       }
       return searchStores;
+    },
+    showStores() {
+      let current = this.currentPage * this.parPage;
+      let start = current - this.parPage;
+      return this.searchStores.slice(start, current);
+    },
+    getPageCount() {
+      return Math.ceil(this.searchStores.length / this.parPage);
     }
   },
   created() {
@@ -381,10 +408,43 @@ select {
 .star {
   margin: 15px 0;
   align-items: center;
-  cursor: pointer;
 }
 .star p {
   margin-left: 10px;
   font-size: 1.05rem;
+}
+</style>
+
+<style>
+.pagination {
+  width: 100%;
+  margin: 20px auto 0;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.pagination-item, .pagination-prev, .pagination-next{
+  list-style: none;
+}
+
+.pagination-btn__link,
+.pagination-item__link {
+  border: solid 2px #2f5dff;
+  box-shadow: 1px 1px 5px #888;
+  border-radius: 8px;
+  text-align: center;
+  padding: .4rem 1.6rem;
+  margin: 0 .4rem;
+  display: block;
+}
+.pagination-btn__link:hover,
+.pagination-item__link:hover {
+  background-color: #2f5dff;
+  color: #fff;
+}
+.active .pagination-item__link {
+  background-color: #2f5dff;
+  color: #fff;
+  pointer-events: none;
 }
 </style>

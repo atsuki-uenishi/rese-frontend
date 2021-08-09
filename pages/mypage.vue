@@ -123,7 +123,7 @@
       </div>
       <div class="likestores">
         <h2 class="username">{{ $store.state.user.userName }}</h2>
-        <h2 class="title">お気にり店舗</h2>
+        <h2 class="title">お気に入り店舗</h2>
         <div class="store-list flex">
           <div
             v-for="likestore in likedStores"
@@ -325,7 +325,11 @@ export default {
       this.modal = true;
       this.changeReservationId = storeId;
       this.date = date;
-      this.time = time;
+      if(time.slice(0,1) == 1 || time.slice(0,1) == 2) {
+        this.time = time.slice(0, 5);
+      } else{
+        this.time = time.slice(1, 5);
+      }
       this.number = number;
     },
     beforeTime(time) {

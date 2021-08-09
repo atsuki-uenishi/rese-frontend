@@ -29,6 +29,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    {src: '@/plugins/vuejs-paginate.js', ssr:false },
     {src: '@/plugins/vee-validate.js'},
     {src: '@/plugins/persistedstate.js', ssr: false},
   ],
@@ -69,10 +70,12 @@ export default {
         provider: 'laravel/jwt',
         url: 'https://mysterious-plateau-61386.herokuapp.com',
         token: {
-          maxAge: 60 * 60
+          maxAge: 60 * 60,
+          property: 'access_token'
         },
         refreshToken: {
-          maxAge: 20160 * 60
+          maxAge: 20160 * 60,
+          property: 'access_token'
         }
       },
     },

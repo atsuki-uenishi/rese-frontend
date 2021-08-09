@@ -23,25 +23,34 @@
       <div class="reservation">
         <div class="reservation-box">
           <h2>予約</h2>
-          <input
-            type="date"
-            name="date"
-            class="input-date"
-            :min="today"
-            v-model="date"
-          />
-          <select name="time" class="input-time" v-model="time">
-            <option
-              v-show="beforeTime(reservationTime)"
-              v-for="reservationTime in reservationTimes"
-              :key="reservationTime"
-              :value="reservationTime"
-              >{{ reservationTime }}</option
-            >
-          </select>
-          <select name="number" class="input-number" v-model="number">
-            <option :value="n" v-for="n in 10" :key="n">{{ n }}人</option>
-          </select>
+          <validation-provider v-slot="{ errors }" rules="required">
+            <input
+              type="date"
+              name="date"
+              class="input-date"
+              :min="today"
+              v-model="date"
+            />
+            <div class="error">{{ errors[0] }}</div>
+          </validation-provider>
+          <validation-provider v-slot="{ errors }" rules="required">
+            <select name="time" class="input-time" v-model="time">
+              <option
+                v-show="beforeTime(reservationTime)"
+                v-for="reservationTime in reservationTimes"
+                :key="reservationTime"
+                :value="reservationTime"
+                >{{ reservationTime }}</option
+              >
+            </select>
+            <div class="error">{{ errors[0] }}</div>
+          </validation-provider>
+          <validation-provider v-slot="{ errors }" rules="required">
+            <select name="number" class="input-number" v-model="number">
+              <option :value="n" v-for="n in 10" :key="n">{{ n }}人</option>
+            </select>
+            <div class="error">{{ errors[0] }}</div>
+          </validation-provider>
           <div class="reservation-content">
             <table>
               <tr>
@@ -63,7 +72,9 @@
             </table>
           </div>
         </div>
-        <button class="reservation-btn btn" @click="reserve">予約する</button>
+        <button class="reservation-btn btn" @click="reserve">
+          予約する
+        </button>
       </div>
     </div>
   </div>
@@ -76,8 +87,7 @@ export default {
       store: "",
       area: "",
       genre: "",
-      date: "",
-      time: "",
+      time: "9:00",
       number: "1",
       reservationTimes: [
         "9:00",
@@ -201,6 +211,16 @@ export default {
   },
   computed: {
     today() {
+      const today = new Date();
+      return (
+        today.getFullYear() +
+        "-" +
+        ("0" + (today.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + today.getDate()).slice(-2)
+      );
+    },
+    date() {
       const today = new Date();
       return (
         today.getFullYear() +

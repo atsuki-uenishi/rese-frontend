@@ -94,7 +94,10 @@
             </button>
           </div>
           <div class="review-content">
-            <textarea name="review" v-model="review" />
+            <validation-provider v-slot="{ errors }" rules="required|max:800">
+              <textarea name="review" v-model="review" />
+              <div class="error">{{ errors[0] }}</div>
+            </validation-provider>
           </div>
           <button
             class="btn review-btn"
@@ -183,7 +186,6 @@ export default {
           "/reviews"
       );
       this.reviews = getData.data.data;
-      this.alreadyReview();
     },
     async deleteReview(reviewId) {
       await this.$axios.delete(
@@ -249,7 +251,7 @@ export default {
       } else {
         return false;
       }
-    },
+    }
   },
   created() {
     this.getShop();

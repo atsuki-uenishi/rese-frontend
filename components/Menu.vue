@@ -6,7 +6,7 @@
         <span class="menu__line--middle"></span>
         <span class="menu__line--bottom"></span>
       </div>
-      <h2 class="logo">Rese</h2>
+      <h1 class="logo">Rese</h1>
     </div>
     <div class="menu-list" v-show="open">
       <ul>

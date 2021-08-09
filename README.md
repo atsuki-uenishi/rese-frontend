@@ -6,6 +6,7 @@ Reseのfrotend
 
 * vee-validate.js
 * persistedstate.js
+* vuejs-paginate
 
 # Installation
 
@@ -16,7 +17,9 @@ yarn add persistedstate.js
 ```bash
 yarn add vee-validate
 ```
-
+```bash
+yarn add vuejs-paginate
+```
 
 # Usage
 
